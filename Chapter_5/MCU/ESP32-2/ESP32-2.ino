@@ -90,7 +90,7 @@ void conduction_image() {
   const int out_zero_point = -128;
 
 
-  // if (Mb.MbData[2]==true) {
+  if (Mb.MbData[2]==true) {
     for (int i = 0; i < 64; i++) {
       for (int j = 0; j < 64; j++) {
         model_input_buffer[j] = int8_t(buffer1[i * 64 + j]);
@@ -119,8 +119,9 @@ void conduction_image() {
     }
 
     mse = (total_err / (64.0f * 64.0f)) * 100000;
-  // }
-  Serial.printf("%.8f\n", mse);
+  }
+  
+  
 }
 
 // ====== SETUP ======
@@ -206,6 +207,7 @@ void Task1code(void* pvParameters) {
     // Serial.print("40000: " + String(Mb.MbData[0]));
     // Serial.print("\n40001: " + String(Mb.MbData[1]));
     Mb.MbsRun();
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    vTaskDelay(pdMS_TO_TICKS(250));
+    // Serial.println(Mb.MbData[2]);
   }
 }
